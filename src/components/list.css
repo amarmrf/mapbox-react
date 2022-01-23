@@ -1,0 +1,74 @@
+.listContainer {
+  width: 300px;
+  height: auto;
+  padding: 12px;
+  border-radius: 10px;
+  background-color: white;
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  cursor: initial;
+}
+
+.listCancel {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  cursor: pointer;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: teal;
+  font-weight: 700;
+}
+
+.listBtn {
+  border: none;
+  padding: 5px;
+  background-color: teal;
+  color: white;
+  cursor: pointer;
+}
+
+.failure {
+  font-size: 12px;
+  color: red;
+  text-align: center;
+}
+
+.nav, .customize {
+  display: flex;
+  justify-content: space-around;
+}
+
+.trailItem {
+  display: flex;
+  justify-content: space-between;
+}
+
+.selectButton {
+  margin-left: 50px;
+  cursor: pointer;
+}
+
+.navButton {
+  margin: 8px 4px 14px;
+  cursor: pointer;
+}
+
+.customizeButton {
+  margin: 14px 4px 8px;;
+  cursor: pointer;
+}
+
+h4 {
+  margin: 16px auto 2px auto
+}
