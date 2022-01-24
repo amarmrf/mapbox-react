@@ -13,6 +13,7 @@ const Map = () => {
     zoom: 11
   }
 
+  // center coordinate is hardcoded because not really the center of mass
   const center = {
     latitude: 5.98,
     longitude: 108.29,
@@ -26,9 +27,15 @@ const Map = () => {
   const [selectedPark, setSelectedPark] = useState(0);
   const [isHomeSelected, setIsHomeSelected] = useState(0);
 
-  const handleZoomOut = () => {
-    console.log('zoom out')
-    setViewport({ ...viewport, ...center})
+  const handleZoom = (val) => {
+    if (!val) {
+      setIsHomeSelected(0);
+      setViewport({ ...viewport, ...center});
+    } else if (selectedPark) {
+      setViewport({ ...viewport, latitude: selectedPark.geometry.coordinates[1], longitude: selectedPark.geometry.coordinates[0], zoom: 11});
+    } else {
+      handleHome();
+    }
   }
 
   const handleNext = () => {
@@ -58,7 +65,8 @@ const Map = () => {
   }
 
   const handleCustomize = (val) => {
-    handleHome();
+    index.current = 0
+    setSelectedPark(null);
     setTrails(val);
   }
 
@@ -182,7 +190,7 @@ const Map = () => {
             </div>
           </Popup>
         ) : null}
-        <List reset={handleCustomize} next={handleNext} prev={handlePrev} home={handleHome} filter={handleCustomize} select={handleSelect} sort={handleCustomize} selected={index.current-1} zoomOut={handleZoomOut} />
+        <List reset={handleCustomize} next={handleNext} prev={handlePrev} home={handleHome} filter={handleCustomize} select={handleSelect} sort={handleCustomize} selected={index.current-1} zoom={handleZoom} />
       </ReactMapGL>
     </div>
   )

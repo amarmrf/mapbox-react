@@ -2,12 +2,13 @@ import React, { useState, useRef } from "react";
 import * as parkDate from "../data/campsites.json";
 import "./list.css";
 
-const List = ({ reset, next, prev, home, filter, select, sort, selected, zoomOut }) => {
+const List = ({ reset, next, prev, home, filter, select, sort, selected, zoom }) => {
   const [trails, setTrails] = useState(parkDate.default.features);
   const sortVar = useRef('time');
   const countryFilter = useRef('All');
   const typeFilter = useRef('All');
   const lengthFilter = useRef('All');
+  const loadState = useRef(false);
   
   // if filter use radio button then just turn each filter into array and loop it upon call
   const applyFilter = (val, meta) => {
@@ -50,7 +51,7 @@ const List = ({ reset, next, prev, home, filter, select, sort, selected, zoomOut
       } 
     } else {
       lengthFilter.current = val;
-      console.log(val)
+
       if (val === 'Short') {
         filteredTrails = parkDate.default.features.filter(trail => parseInt(trail.properties.LENGTH) < 3);
       } else if (val === 'Medium') {
@@ -147,9 +148,10 @@ const List = ({ reset, next, prev, home, filter, select, sort, selected, zoomOut
            Reset
           </button>
           <button className="customizeButton" onClick={e => {
-            zoomOut();
+            zoom(loadState.current);
+            loadState.current = !loadState.current
           }}>
-           Zoom Out
+           { loadState.current  ? 'Zoom In' : 'Zoom Out' }
           </button>
       </div>
       <div>
