@@ -7,15 +7,29 @@ import "./map.css";
 import List from "./List";
 
 const Map = () => {
-  const [viewport, setViewport] = useState({
-    latitude: -6.497195,
-    longitude: 106.675595,
-    zoom: 10.5
-  });
+  const homeLoc = {
+    latitude: -6.595038,
+    longitude: 106.816635,
+    zoom: 11
+  }
+
+  const center = {
+    latitude: 5.98,
+    longitude: 108.29,
+    zoom: 3
+  }
+
+  const [viewport, setViewport] = useState(homeLoc);
   const [trails, setTrails] = useState(parkDate.default.features);
   const index = useRef(0);
 
   const [selectedPark, setSelectedPark] = useState(0);
+  const [isHomeSelected, setIsHomeSelected] = useState(0);
+
+  const handleZoomOut = () => {
+    console.log('zoom out')
+    setViewport({ ...viewport, ...center})
+  }
 
   const handleNext = () => {
     if (index.current < trails.length) {
@@ -28,15 +42,14 @@ const Map = () => {
     if (index.current > 1) {
       index.current--;
       handleMarkerSelected(trails[index.current-1]);
-    } else {
-      handleHome()
     }
   }
 
   const handleHome = () => {
     index.current = 0
     setSelectedPark(null);
-    setViewport({ ...viewport, latitude: -6.497195, longitude: 106.675595, zoom: 10.5})
+    setIsHomeSelected(1);
+    setViewport({ ...viewport, ...homeLoc})
   }
 
   const handleSelect = (val) =>{
@@ -44,23 +57,14 @@ const Map = () => {
     handleMarkerSelected(val.park);
   }
 
-  const handleReset = (val) => {
-    handleHome()
+  const handleCustomize = (val) => {
+    handleHome();
     setTrails(val);
-  }
-
-  const handleFilter = (val) => {
-    handleHome()
-    setTrails(val);
-  }
-
-  const handleSort = (val) => {
-    setTrails(val);
-    handleHome()
   }
 
   const handleMarkerSelected = (park) => {
     setSelectedPark(park);
+    setIsHomeSelected(0);
     setViewport({ ...viewport, latitude: park.geometry.coordinates[1], longitude: park.geometry.coordinates[0] });
   };
 
@@ -68,6 +72,7 @@ const Map = () => {
     const listener = e => {
       if (e.key === "Escape") {
         setSelectedPark(null);
+        setIsHomeSelected(0)
       }
     };
     window.addEventListener("keydown", listener);
@@ -90,13 +95,33 @@ const Map = () => {
           setViewport(viewport);
         }}
       >
+        <Marker
+            latitude={homeLoc.latitude}
+            longitude={homeLoc.longitude}
+            offsetLeft={-(viewport.zoom < 7 ? 5 : 3.5) * viewport.zoom}
+            offsetTop={-(viewport.zoom < 7 ? 7 : 2.5) * viewport.zoom}
+        >
+          <button
+              className="marker-btn"
+              onClick={e => {
+                e.preventDefault();
+                handleHome();
+              }}
+            >
+            <Room style={{
+              fontSize: (viewport.zoom < 7 ? 8 : 4) * viewport.zoom,
+              color: "tomato"
+            }}/>
+          </button>
+        </Marker>
+
         {trails.map(park => (
           <Marker
             key={park.properties.PARK_ID}
             latitude={park.geometry.coordinates[1]}
             longitude={park.geometry.coordinates[0]}
-            offsetLeft={-3.5 * viewport.zoom}
-            offsetTop={-1.5 * viewport.zoom}
+            offsetLeft={-(viewport.zoom < 7 ? 5 : 3.5) * viewport.zoom}
+            offsetTop={-(viewport.zoom < 7 ? 7 : 2.5) * viewport.zoom}
           >
             <button
               className="marker-btn"
@@ -106,7 +131,7 @@ const Map = () => {
               }}
             >
                <Room style={{
-                  fontSize: 3 * viewport.zoom,
+                  fontSize: (viewport.zoom < 7 ? 8 : 4) * viewport.zoom,
                   color: "slateblue"
                 }}/>
             </button>
@@ -127,9 +152,13 @@ const Map = () => {
               <h4 className="place">{selectedPark.properties.NAME}</h4>
               <label>Review</label>
               <p className="desc">{selectedPark.properties.DESCRIPTIO}</p>
+              <label>Length</label>
+              <p className="desc">{selectedPark.properties.LENGTH} days</p>
+              <label>Maximum Elevation</label>
+              <p className="desc">{selectedPark.properties.MAX_ELEVATION} masl</p>
               <label>Rating</label>
               <div className="stars">
-                  {Array(5).fill(<Star className="star" />)}
+                  {selectedPark.properties.RATING? Array(selectedPark.properties.RATING).fill(<Star className="star" />) : 'N/A'}
               </div>
               <label>Information</label>
               <span className="date">
@@ -138,7 +167,22 @@ const Map = () => {
             </div>
           </Popup>
         ) : null}
-        <List reset={handleReset} next={handleNext} prev={handlePrev} home={handleHome} filter={handleFilter} select={handleSelect} sort={handleSort}/>
+
+          {isHomeSelected ? (
+          <Popup
+          latitude={homeLoc.latitude}
+          longitude={homeLoc.longitude}
+            anchor="left"
+            onClose={() => {
+              setIsHomeSelected(0);
+            }}
+          >
+            <div className="homeCard">
+              <h4 className="place">Home sweet home</h4>
+            </div>
+          </Popup>
+        ) : null}
+        <List reset={handleCustomize} next={handleNext} prev={handlePrev} home={handleHome} filter={handleCustomize} select={handleSelect} sort={handleCustomize} selected={index.current-1} zoomOut={handleZoomOut} />
       </ReactMapGL>
     </div>
   )

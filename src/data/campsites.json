@@ -13,14 +13,17 @@
         "VISITED_AT": "2013-04-13", 
         "NAME": "Mount Arjuno",
         "NAME_FR": "Arjuno",
-        "DESCRIPTIO": "Flat asphalt surface, 5 components",
+        "DESCRIPTIO": "Challenging trail, steep terrain, beautiful scenery",
         "COUNTRY": "Indonesia",
         "LENGTH": 4,
+        "RATING": 4,
+        "MAX_ELEVATION": 3339, 
+        "TEAM": 10,
         "TYPE": "Mountain"
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [106.3372987731628, -6.583321536272049]
+        "coordinates": [112.589444, -7.764444]
       }
     },
     {
@@ -31,14 +34,17 @@
         "VISITED_AT": "2013-10-10", 
         "NAME": "Mount Gede",
         "NAME_FR": "Gede",
-        "DESCRIPTIO": "Flat asphalt surface, 10 components, City run learn to skateboard programs, City run skateboard camps in summer",
+        "DESCRIPTIO": "Challenging and rewarding enough for beginner", 
         "COUNTRY": "Indonesia",
         "LENGTH": 2,
+        "RATING": 3, 
+        "MAX_ELEVATION": 3008,
+        "TEAM": 5,
         "TYPE": "Mountain"
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [106.546518086577947, -6.667134581917357]
+        "coordinates": [106.98, -6.78]
       }
     },
     {
@@ -49,14 +55,17 @@
         "VISITED_AT": "2014-04-24", 
         "NAME": "Sempu Island",
         "NAME_FR": "Sempu",       
-        "DESCRIPTIO": "Flat asphalt surface, 5 components",
+        "DESCRIPTIO": "Forest terrain to a swimhole island",
         "COUNTRY": "Indonesia",
         "LENGTH": 2,
+        "RATING": 4, 
+        "MAX_ELEVATION": 0,
+        "TEAM": 5,
         "TYPE": "Island"
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [106.898610599532319, -6.495014379864874]
+        "coordinates": [112.695278, -8.446667]
       }
     },
     {
@@ -67,14 +76,17 @@
         "VISITED_AT": "2014-10-23", 
         "NAME": "Mount Merbabu",
         "NAME_FR": "Merbabu",
-        "DESCRIPTIO": "Flat asphalt surface, 5 components",
+        "DESCRIPTIO": "Very beautiful like in middle earth",
         "COUNTRY": "Indonesia",
         "LENGTH": 2,
+        "RATING": 5, 
+        "MAX_ELEVATION": 3145,
+        "TEAM": 10,
         "TYPE": "Mountain"
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [106.760933332842754, -6.545566668964558]
+        "coordinates": [110.44, -7.455]
       }
     },
     {
@@ -85,14 +97,17 @@
         "VISITED_AT": "2014-12-10", 
         "NAME": "Mount Papandayan",
         "NAME_FR": "Papandayan",
-        "DESCRIPTIO": "Flat asphalt surface, 5 components",
+        "DESCRIPTIO": "Scenic volcanic remains",
         "COUNTRY": "Indonesia",
         "LENGTH": 2,
+        "RATING": 3, 
+        "MAX_ELEVATION": 2665,
+        "TEAM": 3,
         "TYPE": "Mountain"
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [106.625996131485707, -6.575401587496128]
+        "coordinates": [107.73, -7.32]
       }
     },
     {
@@ -103,14 +118,17 @@
         "VISITED_AT": "2015-08-17", 
         "NAME": "Mount Fuji",
         "NAME_FR": "Fuji",
-        "DESCRIPTIO": "Flat asphalt surface, 5 components",
+        "DESCRIPTIO": "The One and Only",
         "COUNTRY": "Japan",
         "LENGTH": 2,
+        "RATING": 3, 
+        "MAX_ELEVATION": 3775,
+        "TEAM": 5,
         "TYPE": "Mountain"
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [106.857009812435976, -6.490758029776626]
+        "coordinates": [138.7275, 35.360556]
       }
     },
     {
@@ -121,14 +139,17 @@
         "VISITED_AT": "2016-08-29", 
         "NAME": "Mount Rinjani",
         "NAME_FR": "Rinjani",
-        "DESCRIPTIO": "Flat asphalt surface, 5 components",
+        "DESCRIPTIO": "The most beautiful mountain in Indonesia",
         "COUNTRY": "Indonesia",
         "LENGTH": 4,
+        "RATING": 5, 
+        "MAX_ELEVATION": 3726,
+        "TEAM": 3,
         "TYPE": "Mountain"
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [106.703622500360268, -6.608488357092367]
+        "coordinates": [116.459767, -8.414414]
       }
     },
     {
@@ -139,14 +160,17 @@
         "VISITED_AT": "2019-12-30", 
         "NAME": "Mount Kumotori",
         "NAME_FR": "Kumotori",
-        "DESCRIPTIO": "Flat asphalt surface, 5 components",
+        "DESCRIPTIO": "Sizeable and fun to hike",
         "COUNTRY": "Japan",
         "LENGTH": 2,
+        "RATING": 5, 
+        "MAX_ELEVATION": 2017,
+        "TEAM": 4,
         "TYPE": "Mountain"
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [106.609516309730921, -6.514086718258636]
+        "coordinates": [138.943611, 35.855278]
       }
     },
     {
@@ -154,17 +178,20 @@
       "properties": {
         "PARK_ID": 52,
         "FACILITYID": 35120,
-        "VISITED_AT": "2022-10-10", 
+        "VISITED_AT": "2023-10-10", 
         "NAME": "Annapurna Circuit",
         "NAME_FR": "Annapurna",
-        "DESCRIPTIO": "Flat asphalt surface, 5 components",
+        "DESCRIPTIO": "The Next One",
         "COUNTRY": "Nepal",
         "LENGTH": 12,
+        "RATING": null, 
+        "MAX_ELEVATION": 5416,
+        "TEAM": 1,
         "TYPE": "Alps"
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [106.681193500335723, -6.600372622455215]
+        "coordinates": [83.937222, 28.793611]
       }
     }
   ]

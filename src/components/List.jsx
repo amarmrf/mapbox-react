@@ -2,15 +2,15 @@ import React, { useState, useRef } from "react";
 import * as parkDate from "../data/campsites.json";
 import "./list.css";
 
-const List = ({ reset, next, prev, home, filter, select, sort }) => {
+const List = ({ reset, next, prev, home, filter, select, sort, selected, zoomOut }) => {
   const [trails, setTrails] = useState(parkDate.default.features);
   const sortVar = useRef('time');
   const countryFilter = useRef('All');
   const typeFilter = useRef('All');
   const lengthFilter = useRef('All');
-
-  // if filter use radio button then just loop on each filter array
-  const handleFilter = (val, meta) => {
+  
+  // if filter use radio button then just turn each filter into array and loop it upon call
+  const applyFilter = (val, meta) => {
     let filteredTrails = []
     if (meta === 'country') {
       countryFilter.current = val;    
@@ -19,6 +19,7 @@ const List = ({ reset, next, prev, home, filter, select, sort }) => {
       } else {
         filteredTrails = parkDate.default.features.filter(trail => trail.properties.COUNTRY === val);
       }  
+      // apply other currently active filter
       if (typeFilter.current !== 'All') {
         filteredTrails = filteredTrails.filter(trail => trail.properties.TYPE === typeFilter.current);
       }
@@ -36,6 +37,7 @@ const List = ({ reset, next, prev, home, filter, select, sort }) => {
       } else {
         filteredTrails = parkDate.default.features.filter(trail => trail.properties.TYPE === val);
       }
+      // apply other currently active filter
       if (countryFilter.current !== 'All') {
         filteredTrails = filteredTrails.filter(trail => trail.properties.COUNTRY === countryFilter.current);
       }
@@ -58,15 +60,15 @@ const List = ({ reset, next, prev, home, filter, select, sort }) => {
       } else {
         filteredTrails = parkDate.default.features;
       }
-      
+      // apply other currently active filter
       if (countryFilter.current !== 'All') {
         filteredTrails = filteredTrails.filter(trail => trail.properties.COUNTRY === countryFilter.current);
       }
       if (typeFilter.current !== 'All') {
         filteredTrails = filteredTrails.filter(trail => trail.properties.TYPE === typeFilter.current);
       }
-      console.log(filteredTrails)
     }
+    // apply currently active sort
     if (sortVar.current === 'name') {
       filteredTrails = filteredTrails.sort((a,b) => a.properties.NAME_FR.localeCompare(b.properties.NAME_FR));
     } else {
@@ -89,7 +91,7 @@ const List = ({ reset, next, prev, home, filter, select, sort }) => {
     sort(sortedTrails)
   }
 
-  const handleReset = () => {
+  const resetCustomization = () => {
     setTrails(parkDate.default.features);
     sortVar.current = 'time';
     countryFilter.current = 'All';
@@ -100,11 +102,11 @@ const List = ({ reset, next, prev, home, filter, select, sort }) => {
 
   return (
     <div className="listContainer">
-      <h4>Trails Walked</h4>
+      <h4>My Trail List</h4>
       <div className="customize">
           <div className="filterSelect">
             <select name="Country" value={countryFilter.current} id="country" onChange={e => {
-              handleFilter(e.target.value, 'country');
+              applyFilter(e.target.value, 'country');
             }}>
               <option value="All">All Countries</option>
               <option value="Indonesia">Indonesia</option>
@@ -114,7 +116,7 @@ const List = ({ reset, next, prev, home, filter, select, sort }) => {
           </div>
           <div className="filterSelect">
             <select name="Type" id="type" value={typeFilter.current} onChange={e => {
-              handleFilter(e.target.value, 'type');
+              applyFilter(e.target.value, 'type');
             }}>
               <option value="All">All Type</option>
               <option value="Mountain">Mountain</option>
@@ -124,7 +126,7 @@ const List = ({ reset, next, prev, home, filter, select, sort }) => {
           </div>
           <div className="filterSelect">
             <select name="Length" id="length" value={lengthFilter.current} onChange={e => {
-              handleFilter(e.target.value, 'length');
+              applyFilter(e.target.value, 'length');
             }}>
               <option value="All">All Length</option>
               <option value="Short"> {'< 3 days'}</option>
@@ -135,19 +137,24 @@ const List = ({ reset, next, prev, home, filter, select, sort }) => {
       </div>
       <div className="customize">
           <button className="customizeButton" onClick={e => {
-            handleReset();
+            toggleSort();
+          }}>
+           { sortVar.current === 'name' ? 'Sort by Visited at' : 'Sort by Name'}
+          </button>
+          <button className="customizeButton" onClick={e => {
+            resetCustomization();
           }}>
            Reset
           </button>
           <button className="customizeButton" onClick={e => {
-            toggleSort();
+            zoomOut();
           }}>
-           { sortVar.current === 'name' ? 'Time Sort' : 'Name Sort'}
+           Zoom Out
           </button>
       </div>
       <div>
         {trails.map((park, index) => (
-          <p key={park.properties.PARK_ID} className="trailItem"> 
+          <p key={park.properties.PARK_ID} className={`trailItem ${index === selected ? 'selectedListItem' : ''}`}> 
             {park.properties.NAME} 
             <button className="selectButton" onClick={e => {
               select({ park, index });
