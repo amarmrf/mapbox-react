@@ -9,6 +9,7 @@ const List = ({ reset, next, prev, home, filter, select, sort }) => {
   const typeFilter = useRef('All');
   const lengthFilter = useRef('All');
 
+  // if filter use radio button then just loop on each filter array
   const handleFilter = (val, meta) => {
     let filteredTrails = []
     if (meta === 'country') {
@@ -90,8 +91,11 @@ const List = ({ reset, next, prev, home, filter, select, sort }) => {
 
   const handleReset = () => {
     setTrails(parkDate.default.features);
-    sortVar.current = 'time'
-    reset(trails);
+    sortVar.current = 'time';
+    countryFilter.current = 'All';
+    typeFilter.current = 'All';
+    lengthFilter.current = 'All';
+    reset(parkDate.default.features);
   }
 
   return (
@@ -99,7 +103,7 @@ const List = ({ reset, next, prev, home, filter, select, sort }) => {
       <h4>Trails Walked</h4>
       <div className="customize">
           <div className="filterSelect">
-            <select name="Country" id="country" onChange={e => {
+            <select name="Country" value={countryFilter.current} id="country" onChange={e => {
               handleFilter(e.target.value, 'country');
             }}>
               <option value="All">All Countries</option>
@@ -109,7 +113,7 @@ const List = ({ reset, next, prev, home, filter, select, sort }) => {
             </select>
           </div>
           <div className="filterSelect">
-            <select name="Type" id="type" onChange={e => {
+            <select name="Type" id="type" value={typeFilter.current} onChange={e => {
               handleFilter(e.target.value, 'type');
             }}>
               <option value="All">All Type</option>
@@ -119,7 +123,7 @@ const List = ({ reset, next, prev, home, filter, select, sort }) => {
             </select>
           </div>
           <div className="filterSelect">
-            <select name="Length" id="length" onChange={e => {
+            <select name="Length" id="length" value={lengthFilter.current} onChange={e => {
               handleFilter(e.target.value, 'length');
             }}>
               <option value="All">All Length</option>
