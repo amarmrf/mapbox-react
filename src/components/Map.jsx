@@ -133,7 +133,7 @@ const Map = () => {
               </div>
               <label>Information</label>
               <span className="date">
-                Visited {format(new Date("2016-08-20"))}
+                Visited {format(new Date(selectedPark.properties.VISITED_AT))}
               </span>
             </div>
           </Popup>

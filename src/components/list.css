@@ -65,8 +65,12 @@
 }
 
 .customizeButton {
-  margin: 14px 4px 8px;;
+  margin: 14px 4px 8px;
   cursor: pointer;
+}
+
+.filterSelect {
+  margin: 14px 4px 2px;
 }
 
 h4 {
