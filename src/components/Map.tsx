@@ -1,12 +1,33 @@
 import React, { useState, useEffect, useRef } from "react";
 import ReactMapGL, { Marker, Popup } from "react-map-gl";
-import * as parkDate from "../data/campsites.json";
+import {default as trailData} from "../data/trails.json";
 import { Room, Star } from '@mui/icons-material';
 import { format } from "timeago.js";
 import "./map.css";
 import List from "./List";
 
-const Map = () => {
+export interface Trails {
+    type: string,
+    properties: {
+      parkId: number,
+      visitedAt: string, 
+      name: string,
+      nameFr: string,
+      description: string,
+      country: string,
+      length: number,
+      rating: number | null,
+      maxElevation: number,
+      team: number,
+      type: string
+    },
+    geometry: {
+      type: string,
+      coordinates: number[]
+    }
+}
+
+const Map: React.FC = () => {
   const homeLoc = {
     latitude: -6.595038,
     longitude: 106.816635,
@@ -21,13 +42,12 @@ const Map = () => {
   }
 
   const [viewport, setViewport] = useState(homeLoc);
-  const [trails, setTrails] = useState(parkDate.default.features);
-  const index = useRef(0);
-
-  const [selectedPark, setSelectedPark] = useState(0);
+  const [trails, setTrails] = useState(trailData.features);
+  const [selectedPark, setSelectedPark] = useState<Trails | null>(null);
   const [isHomeSelected, setIsHomeSelected] = useState(0);
-
-  const handleZoom = (val) => {
+  const index = useRef(0);
+ 
+  const handleZoom = (val: boolean) => {
     if (!val) {
       setIsHomeSelected(0);
       setViewport({ ...viewport, ...center});
@@ -59,26 +79,26 @@ const Map = () => {
     setViewport({ ...viewport, ...homeLoc})
   }
 
-  const handleSelect = (val) =>{
+  const handleSelect = (val: { index: number, park: Trails}) =>{
     index.current = val.index + 1
     handleMarkerSelected(val.park);
   }
 
-  const handleCustomize = (val) => {
+  const handleCustomize = (val: Trails[]) => {
     index.current = 0
     setSelectedPark(null);
     setTrails(val);
   }
 
-  const handleMarkerSelected = (park) => {
+  const handleMarkerSelected = (park: Trails) => {
     setSelectedPark(park);
     setIsHomeSelected(0);
     setViewport({ ...viewport, latitude: park.geometry.coordinates[1], longitude: park.geometry.coordinates[0] });
   };
 
   useEffect(() => {
-    const listener = e => {
-      if (e.key === "Escape") {
+    const listener = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
         setSelectedPark(null);
         setIsHomeSelected(0)
       }
@@ -98,7 +118,7 @@ const Map = () => {
         mapStyle="mapbox://styles/mapbox/outdoors-v11"
         width="100%"
         height="100%"
-        transitionDuration='200'
+        transitionDuration={200}
         onViewportChange={viewport => {
           setViewport(viewport);
         }}
@@ -123,9 +143,9 @@ const Map = () => {
           </button>
         </Marker>
 
-        {trails.map(park => (
+        {trails.map((park: Trails) => (
           <Marker
-            key={park.properties.PARK_ID}
+            key={park.properties.parkId}
             latitude={park.geometry.coordinates[1]}
             longitude={park.geometry.coordinates[0]}
             offsetLeft={-(viewport.zoom < 7 ? 5 : 3.5) * viewport.zoom}
@@ -157,20 +177,20 @@ const Map = () => {
           >
             <div className="card">
               <label>Trail</label>
-              <h4 className="place">{selectedPark.properties.NAME}</h4>
+              <h4 className="place">{selectedPark.properties.name}</h4>
               <label>Review</label>
-              <p className="desc">{selectedPark.properties.DESCRIPTIO}</p>
+              <p className="desc">{selectedPark.properties.description}</p>
               <label>Length</label>
-              <p className="desc">{selectedPark.properties.LENGTH} days</p>
+              <p className="desc">{selectedPark.properties.length} days</p>
               <label>Maximum Elevation</label>
-              <p className="desc">{selectedPark.properties.MAX_ELEVATION} masl</p>
+              <p className="desc">{selectedPark.properties.maxElevation} masl</p>
               <label>Rating</label>
               <div className="stars">
-                  {selectedPark.properties.RATING? Array(selectedPark.properties.RATING).fill(<Star className="star" />) : 'N/A'}
+                  {selectedPark.properties.rating? Array(selectedPark.properties.rating).fill(<Star className="star" />) : 'N/A'}
               </div>
               <label>Information</label>
               <span className="date">
-                Visited {format(new Date(selectedPark.properties.VISITED_AT))}
+                Visited {format(new Date(selectedPark.properties.visitedAt))}
               </span>
             </div>
           </Popup>

@@ -1,0 +1,189 @@
+{
+  "type": "FeatureCollection",
+  "crs": {
+    "type": "name",
+    "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "parkId": 960,
+        "visitedAt": "2013-04-13", 
+        "name": "Mount Arjuno",
+        "nameFr": "Arjuno",
+        "description": "Challenging trail, steep terrain, beautiful scenery",
+        "country": "Indonesia",
+        "length": 4,
+        "rating": 4,
+        "maxElevation": 3339, 
+        "team": 10,
+        "type": "Mountain"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [112.589444, -7.764444]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parkId": 1219,
+        "visitedAt": "2013-10-10", 
+        "name": "Mount Gede",
+        "nameFr": "Gede",
+        "description": "Challenging and rewarding enough for beginner", 
+        "country": "Indonesia",
+        "length": 2,
+        "rating": 3, 
+        "maxElevation": 3008,
+        "team": 5,
+        "type": "Mountain"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.98, -6.78]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parkId": 1157,
+        "visitedAt": "2014-04-24", 
+        "name": "Sempu Island",
+        "nameFr": "Sempu",       
+        "description": "Forest terrain to a swimhole island",
+        "country": "Indonesia",
+        "length": 2,
+        "rating": 4, 
+        "maxElevation": 0,
+        "team": 5,
+        "type": "Island"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [112.695278, -8.446667]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parkId": 1693,
+        "visitedAt": "2014-10-23", 
+        "name": "Mount Merbabu",
+        "nameFr": "Merbabu",
+        "description": "Very beautiful like in middle earth",
+        "country": "Indonesia",
+        "length": 2,
+        "rating": 5, 
+        "maxElevation": 3145,
+        "team": 10,
+        "type": "Mountain"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [110.44, -7.455]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parkId": 1717,
+        "visitedAt": "2014-12-10", 
+        "name": "Mount Papandayan",
+        "nameFr": "Papandayan",
+        "description": "Scenic volcanic remains",
+        "country": "Indonesia",
+        "length": 2,
+        "rating": 3, 
+        "maxElevation": 2665,
+        "team": 3,
+        "type": "Mountain"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [107.73, -7.32]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parkId": 137,
+        "visitedAt": "2015-08-17", 
+        "name": "Mount Fuji",
+        "nameFr": "Fuji",
+        "description": "The One and Only",
+        "country": "Japan",
+        "length": 2,
+        "rating": 3, 
+        "maxElevation": 3775,
+        "team": 5,
+        "type": "Mountain"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [138.7275, 35.360556]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parkId": 812,
+        "visitedAt": "2016-08-29", 
+        "name": "Mount Rinjani",
+        "nameFr": "Rinjani",
+        "description": "The most beautiful mountain in Indonesia",
+        "country": "Indonesia",
+        "length": 4,
+        "rating": 5, 
+        "maxElevation": 3726,
+        "team": 3,
+        "type": "Mountain"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [116.459767, -8.414414]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parkId": 2457,
+        "visitedAt": "2019-12-30", 
+        "name": "Mount Kumotori",
+        "nameFr": "Kumotori",
+        "description": "Sizeable and fun to hike",
+        "country": "Japan",
+        "length": 2,
+        "rating": 5, 
+        "maxElevation": 2017,
+        "team": 4,
+        "type": "Mountain"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [138.943611, 35.855278]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parkId": 52,
+        "visitedAt": "2023-10-10", 
+        "name": "Annapurna Circuit",
+        "nameFr": "Annapurna",
+        "description": "The Next One",
+        "country": "Nepal",
+        "length": 12,
+        "rating": null, 
+        "maxElevation": 5416,
+        "team": 1,
+        "type": "Alps"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [83.937222, 28.793611]
+      }
+    }
+  ]
+}

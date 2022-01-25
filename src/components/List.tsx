@@ -1,9 +1,22 @@
 import React, { useState, useRef } from "react";
-import * as parkDate from "../data/campsites.json";
+import {default as trailData} from "../data/trails.json";
+import { Trails } from "./Map";
 import "./list.css";
 
-const List = ({ reset, next, prev, home, filter, select, sort, selected, zoom }) => {
-  const [trails, setTrails] = useState(parkDate.default.features);
+
+interface Props {
+  reset: (val: Trails[]) => void,
+  next: () => void,
+  prev: () => void,
+  home: () => void,
+  filter: (val: Trails[]) => void,
+  select: (val: { index: number, park: Trails}) => void,
+  sort: (val: Trails[]) => void,
+  selected: number,
+  zoom: (val: boolean) => void
+}
+const List: React.FC<Props> = ({ reset, next, prev, home, filter, select, sort, selected, zoom }) => {
+  const [trails, setTrails] = useState(trailData.features);
   const sortVar = useRef('time');
   const countryFilter = useRef('All');
   const typeFilter = useRef('All');
@@ -11,69 +24,69 @@ const List = ({ reset, next, prev, home, filter, select, sort, selected, zoom })
   const loadState = useRef(false);
   
   // if filter use radio button then just turn each filter into array and loop it upon call
-  const applyFilter = (val, meta) => {
+  const applyFilter = (val: string, meta: string) => {
     let filteredTrails = []
     if (meta === 'country') {
       countryFilter.current = val;    
       if (val === 'All') {
-        filteredTrails = parkDate.default.features;
+        filteredTrails = trailData.features;
       } else {
-        filteredTrails = parkDate.default.features.filter(trail => trail.properties.COUNTRY === val);
+        filteredTrails = trailData.features.filter((trail: Trails) => trail.properties.country === val);
       }  
       // apply other currently active filter
       if (typeFilter.current !== 'All') {
-        filteredTrails = filteredTrails.filter(trail => trail.properties.TYPE === typeFilter.current);
+        filteredTrails = filteredTrails.filter((trail: Trails) => trail.properties.type === typeFilter.current);
       }
       if (lengthFilter.current === 'Short') {
-        filteredTrails = filteredTrails.filter(trail => parseInt(trail.properties.LENGTH) < 3);
+        filteredTrails = filteredTrails.filter((trail: Trails) => trail.properties.length < 3);
       } else if (lengthFilter.current === 'Medium') {
-        filteredTrails = filteredTrails.filter(trail => parseInt(trail.properties.LENGTH) >= 3 && parseInt(trail.properties.LENGTH) <= 7);      
+        filteredTrails = filteredTrails.filter((trail: Trails) => trail.properties.length >= 3 && trail.properties.length <= 7);      
       } else if (lengthFilter.current === 'Long') {
-        filteredTrails = filteredTrails.filter(trail => parseInt(trail.properties.LENGTH) > 7);
+        filteredTrails = filteredTrails.filter((trail: Trails) => trail.properties.length > 7);
       }
     } else if (meta === 'type') {
       typeFilter.current = val;
       if (val === 'All') {
-        filteredTrails = parkDate.default.features;
+        filteredTrails = trailData.features;
       } else {
-        filteredTrails = parkDate.default.features.filter(trail => trail.properties.TYPE === val);
+        filteredTrails = trailData.features.filter((trail: Trails) => trail.properties.type === val);
       }
       // apply other currently active filter
       if (countryFilter.current !== 'All') {
-        filteredTrails = filteredTrails.filter(trail => trail.properties.COUNTRY === countryFilter.current);
+        filteredTrails = filteredTrails.filter((trail: Trails) => trail.properties.country === countryFilter.current);
       }
       if (lengthFilter.current === 'Short') {
-        filteredTrails = filteredTrails.filter(trail => parseInt(trail.properties.LENGTH) < 3);
+        filteredTrails = filteredTrails.filter((trail: Trails) => trail.properties.length < 3);
       } else if (lengthFilter.current === 'Medium') {
-        filteredTrails = filteredTrails.filter(trail => parseInt(trail.properties.LENGTH) >= 3 && parseInt(trail.properties.LENGTH) <= 7);        
+        filteredTrails = filteredTrails.filter((trail: Trails) => trail.properties.length >= 3 && trail.properties.length <= 7);        
       } else if (lengthFilter.current === 'Long') {
-        filteredTrails = filteredTrails.filter(trail => parseInt(trail.properties.LENGTH) > 7);
+        filteredTrails = filteredTrails.filter((trail: Trails) => trail.properties.length > 7);
       } 
     } else {
       lengthFilter.current = val;
 
       if (val === 'Short') {
-        filteredTrails = parkDate.default.features.filter(trail => parseInt(trail.properties.LENGTH) < 3);
+        filteredTrails = trailData.features.filter((trail: Trails) => trail.properties.length < 3);
       } else if (val === 'Medium') {
-        filteredTrails = parkDate.default.features.filter(trail => parseInt(trail.properties.LENGTH) >= 3 && parseInt(trail.properties.LENGTH) <= 7);        
+        filteredTrails = trailData.features.filter((trail: Trails) => trail.properties.length >= 3 && trail.properties.length <= 7);        
       } else if (val === 'Long') {
-        filteredTrails = parkDate.default.features.filter(trail => parseInt(trail.properties.LENGTH) > 7);
+        filteredTrails = trailData.features.filter((trail: Trails) => trail.properties.length > 7);
       } else {
-        filteredTrails = parkDate.default.features;
+        filteredTrails = trailData.features;
       }
       // apply other currently active filter
       if (countryFilter.current !== 'All') {
-        filteredTrails = filteredTrails.filter(trail => trail.properties.COUNTRY === countryFilter.current);
+        filteredTrails = filteredTrails.filter((trail: Trails) => trail.properties.country === countryFilter.current);
       }
       if (typeFilter.current !== 'All') {
-        filteredTrails = filteredTrails.filter(trail => trail.properties.TYPE === typeFilter.current);
+        filteredTrails = filteredTrails.filter((trail: Trails) => trail.properties.type === typeFilter.current);
       }
     }
     // apply currently active sort
     if (sortVar.current === 'name') {
-      filteredTrails = filteredTrails.sort((a,b) => a.properties.NAME_FR.localeCompare(b.properties.NAME_FR));
+      filteredTrails = filteredTrails.sort((a: Trails, b: Trails) => a.properties.nameFr.localeCompare(b.properties.nameFr));
     } else {
-      filteredTrails = filteredTrails.sort((a,b) => new Date(a.properties.VISITED_AT) - new Date(b.properties.VISITED_AT));
+      filteredTrails = filteredTrails.sort((a: Trails, b: Trails) => new Date(a.properties.visitedAt) - new Date(b.properties.visitedAt));
     }
     setTrails(filteredTrails);
     filter(filteredTrails);
@@ -83,22 +96,22 @@ const List = ({ reset, next, prev, home, filter, select, sort, selected, zoom })
     let sortedTrails = [];
     if (sortVar.current === 'time') {
       sortVar.current = 'name';
-      sortedTrails = trails.sort((a,b) => a.properties.NAME_FR.localeCompare(b.properties.NAME_FR));
+      sortedTrails = trails.sort((a: Trails, b: Trails) => a.properties.nameFr.localeCompare(b.properties.nameFr));
     } else {
       sortVar.current = 'time'; 
-      sortedTrails = trails.sort((a,b) => new Date(a.properties.VISITED_AT) - new Date(b.properties.VISITED_AT));
+      sortedTrails = trails.sort((a: Trails, b: Trails) => new Date(a.properties.visitedAt) - new Date(b.properties.visitedAt));
     }
     setTrails(sortedTrails);
     sort(sortedTrails)
   }
 
   const resetCustomization = () => {
-    setTrails(parkDate.default.features);
+    setTrails(trailData.features);
     sortVar.current = 'time';
     countryFilter.current = 'All';
     typeFilter.current = 'All';
     lengthFilter.current = 'All';
-    reset(parkDate.default.features);
+    reset(trailData.features);
   }
 
   return (
@@ -155,9 +168,9 @@ const List = ({ reset, next, prev, home, filter, select, sort, selected, zoom })
           </button>
       </div>
       <div>
-        {trails.map((park, index) => (
-          <p key={park.properties.PARK_ID} className={`trailItem ${index === selected ? 'selectedListItem' : ''}`}> 
-            {park.properties.NAME} 
+        {trails.map((park: Trails, index: number) => (
+          <p key={park.properties.parkId} className={`trailItem ${index === selected ? 'selectedListItem' : ''}`}> 
+            {park.properties.name} 
             <button className="selectButton" onClick={e => {
               select({ park, index });
             }}>
