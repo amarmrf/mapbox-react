@@ -42,7 +42,7 @@ const Map: React.FC = () => {
   }
 
   const [viewport, setViewport] = useState(homeLoc);
-  const [trails, setTrails] = useState(trailData.features);
+  const [trails, setTrails] = useState<Trails[]>(trailData.features);
   const [selectedPark, setSelectedPark] = useState<Trails | null>(null);
   const [isHomeSelected, setIsHomeSelected] = useState(0);
   const index = useRef(0);
