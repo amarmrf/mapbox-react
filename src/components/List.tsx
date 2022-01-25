@@ -16,7 +16,7 @@ interface Props {
   zoom: (val: boolean) => void
 }
 const List: React.FC<Props> = ({ reset, next, prev, home, filter, select, sort, selected, zoom }) => {
-  const [trails, setTrails] = useState(trailData.features);
+  const [trails, setTrails] = useState<Trails[]>(trailData.features);
   const sortVar = useRef('time');
   const countryFilter = useRef('All');
   const typeFilter = useRef('All');
@@ -101,7 +101,7 @@ const List: React.FC<Props> = ({ reset, next, prev, home, filter, select, sort, 
       sortVar.current = 'time'; 
       sortedTrails = trails.sort((a: Trails, b: Trails) => new Date(a.properties.visitedAt).valueOf() - new Date(b.properties.visitedAt).valueOf());
     }
-    setTrails(sortedTrails);
+    setTrails([...sortedTrails]);
     sort(sortedTrails)
   }
 
