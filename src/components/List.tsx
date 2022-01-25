@@ -86,7 +86,7 @@ const List: React.FC<Props> = ({ reset, next, prev, home, filter, select, sort, 
     if (sortVar.current === 'name') {
       filteredTrails = filteredTrails.sort((a: Trails, b: Trails) => a.properties.nameFr.localeCompare(b.properties.nameFr));
     } else {
-      filteredTrails = filteredTrails.sort((a: Trails, b: Trails) => new Date(a.properties.visitedAt) - new Date(b.properties.visitedAt));
+      filteredTrails = filteredTrails.sort((a: Trails, b: Trails) => new Date(a.properties.visitedAt).valueOf() - new Date(b.properties.visitedAt).valueOf());
     }
     setTrails(filteredTrails);
     filter(filteredTrails);
@@ -99,7 +99,7 @@ const List: React.FC<Props> = ({ reset, next, prev, home, filter, select, sort, 
       sortedTrails = trails.sort((a: Trails, b: Trails) => a.properties.nameFr.localeCompare(b.properties.nameFr));
     } else {
       sortVar.current = 'time'; 
-      sortedTrails = trails.sort((a: Trails, b: Trails) => new Date(a.properties.visitedAt) - new Date(b.properties.visitedAt));
+      sortedTrails = trails.sort((a: Trails, b: Trails) => new Date(a.properties.visitedAt).valueOf() - new Date(b.properties.visitedAt).valueOf());
     }
     setTrails(sortedTrails);
     sort(sortedTrails)
