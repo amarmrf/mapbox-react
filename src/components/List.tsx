@@ -187,6 +187,7 @@ const List: React.FC<Props> = ({ reset, next, prev, home, filter, select, sort, 
           </button>
           <button className="navButton" onClick={e => {
             home();
+            loadState.current = false
           }}>
            Home
           </button>
