@@ -1,5 +1,5 @@
 # Link to live working demo:
-- <strong>Redesigned mailbox: https://quirky-bardeen-0db594.netlify.app/</strong> 
+- <strong>Mapbox app: https://quirky-bardeen-0db594.netlify.app/</strong> 
 
 ## Running Locally
 
