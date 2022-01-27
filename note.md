@@ -1,6 +1,6 @@
 # Experience:
 
-To be honest as a daily VUe developer, I started by revisiting my React knowhow especially regarding the basics of Hooks. It turned out to be very similar to Vue, so I managed to implement the app in react.
+To be honest as a daily Vue developer, I started by revisiting my React knowhow especially regarding the basics of Hooks. It turned out to be very similar to Vue, so I managed to implement the app in react.
 
 Online tutorials did help in this phase and I took a very simple starter code from here https://youtu.be/JJatzkPcmoI which is a create-react-app template with a react-map-gl dependency. After that I code everything from scratch and look for some styling inspiration for similar mapbox app.
 
